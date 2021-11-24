@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todoapp/Connectors/initialize.dart';
+import 'package:todoapp/EditTodoPage/edittodo.dart';
 import 'HomePage/home.dart';
 
 void main() {
@@ -16,9 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
-      routes: {'/': (context) => InitializeApp()},
+      routes: {
+        '/': (context) => InitializeApp(),
+        '/editTodo': (context) => EditTodoPage()
+      },
     );
   }
 }

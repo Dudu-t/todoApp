@@ -23,8 +23,12 @@ class Connector {
     return await collection.doc(id).update(data);
   }
 
-  Stream<QuerySnapshot> getStreamAll() {
-    return collection.snapshots();
+  Stream<QuerySnapshot> getStreamAll({String orderByColumn = ''}) {
+    if (orderByColumn == '') {
+      return collection.snapshots();
+    } else {
+      return collection.orderBy(orderByColumn, descending: false).snapshots();
+    }
   }
 
   Future<List> getAll() async {
