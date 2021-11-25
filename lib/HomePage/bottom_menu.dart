@@ -11,9 +11,8 @@ class BottomMenu extends StatefulWidget {
 
 class _BottomMenuState extends State<BottomMenu> {
   Connector tarefas = Connector('tarefas');
-  final TextEditingController _controller = TextEditingController();
-  late String _newTodo = '';
-
+  late TextEditingController _controller = TextEditingController();
+  var _newTodo = '';
   @override
   void dispose() {
     _controller.dispose();
