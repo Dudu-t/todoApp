@@ -15,4 +15,15 @@ class Auth {
       throw Exception(e.code);
     }
   }
+
+  Future<UserCredential?> register(
+      {required String email, required String password}) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
+  }
 }

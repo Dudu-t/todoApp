@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/Connectors/auth.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   Auth auth = Auth();
   late TextEditingController _email;
   late TextEditingController _password;
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: [
                           Text(
-                            'Log-in',
+                            'Registro',
                             style: Theme.of(context).textTheme.headline5,
                           )
                         ],
@@ -108,15 +108,26 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.only(
                               top: 8, left: 16, right: 16, bottom: 0),
                           child: ElevatedButton(
-                            child: Text('Entrar'),
+                            child: Text('Registrar'),
                             onPressed: () {
                               auth
-                                  .login(
+                                  .register(
                                       email: _email.value.text,
                                       password: _password.value.text)
+                                  .then((value) => Navigator.of(context).pop())
                                   .catchError((e) {
                                 setState(() {
-                                  invalidUser = 'Usuário ou senha inválidos';
+                                  if (e.toString() ==
+                                      'Exception: weak-password') {
+                                    invalidUser = 'Senha muito fraca.';
+                                  } else if (e.toString() ==
+                                      'Exception: email-already-in-use') {
+                                    invalidUser =
+                                        'Este e-mail já está sendo utilizado.';
+                                  } else {
+                                    invalidUser =
+                                        'Não foi possível registrar essa conta.';
+                                  }
                                 });
                               });
                             },
@@ -131,9 +142,9 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             style:
                                 ElevatedButton.styleFrom(primary: Colors.grey),
-                            child: Text('Registrar-se'),
+                            child: Text('Voltar'),
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/register');
+                              Navigator.of(context).pop();
                             },
                           ),
                         )),

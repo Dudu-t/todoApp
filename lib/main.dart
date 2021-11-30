@@ -4,6 +4,7 @@ import 'package:todoapp/Connectors/initialize.dart';
 import 'package:todoapp/EditTodoPage/edittodo.dart';
 import 'package:todoapp/LoginPage/loginpage.dart';
 import 'HomePage/home.dart';
+import 'RegisterPage/registerpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,11 +19,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      darkTheme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
       routes: {
         '/': (context) => InitializeApp(),
         '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
         '/home': (context) => HomePage(),
         '/editTodo': (context) => EditTodoPage()
       },
