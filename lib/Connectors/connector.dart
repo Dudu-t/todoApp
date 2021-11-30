@@ -23,11 +23,15 @@ class Connector {
     return await collection.doc(id).update(data);
   }
 
-  Stream<QuerySnapshot> getStreamAll({String orderByColumn = ''}) {
+  Stream<QuerySnapshot> getStreamAll(
+      {String orderByColumn = '', required String uid}) {
     if (orderByColumn == '') {
-      return collection.snapshots();
+      return collection.where('uid', isEqualTo: uid).snapshots();
     } else {
-      return collection.orderBy(orderByColumn, descending: false).snapshots();
+      return collection
+          .where('uid', isEqualTo: uid)
+          .orderBy(orderByColumn, descending: false)
+          .snapshots();
     }
   }
 

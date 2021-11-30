@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/Connectors/connector.dart';
 import 'package:todoapp/HomePage/bottom_menu.dart';
@@ -22,10 +23,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [Text('ToDo App')],
-          mainAxisAlignment: MainAxisAlignment.center,
-        ),
+        actions: [
+          Padding(
+            child: IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+            ),
+            padding: EdgeInsets.only(right: 24),
+          )
+        ],
+        title: Text('ToDo App'),
+        centerTitle: true,
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
@@ -41,14 +51,15 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       body: StreamBuilder<QuerySnapshot>(
-          stream: tarefas.getStreamAll(),
+          stream:
+              tarefas.getStreamAll(uid: FirebaseAuth.instance.currentUser!.uid),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = snapshot.data?.docs;
               data = data?.reversed.toList();
               return ListView.builder(
                 itemCount: data!.length,
-                itemBuilder: (BuildContext context1, int index) {
+                itemBuilder: (BuildContext context, int index) {
                   var tarefa = data?[index];
 
                   return (index == 0)

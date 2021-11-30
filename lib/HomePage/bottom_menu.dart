@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todoapp/Connectors/connector.dart';
 
@@ -54,7 +55,8 @@ class _BottomMenuState extends State<BottomMenu> {
                             ? () {
                                 tarefas.addDoc({
                                   'name': _newTodo,
-                                  'checked': false
+                                  'checked': false,
+                                  'uid': FirebaseAuth.instance.currentUser!.uid,
                                 }).then((value) => Navigator.pop(context));
                               }
                             : null)))

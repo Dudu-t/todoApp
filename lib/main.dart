@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todoapp/Connectors/initialize.dart';
 import 'package:todoapp/EditTodoPage/edittodo.dart';
+import 'package:todoapp/LoginPage/loginpage.dart';
 import 'HomePage/home.dart';
 
 void main() {
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => InitializeApp(),
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
         '/editTodo': (context) => EditTodoPage()
       },
     );
