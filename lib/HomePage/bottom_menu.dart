@@ -13,7 +13,6 @@ class BottomMenu extends StatefulWidget {
 class _BottomMenuState extends State<BottomMenu> {
   Connector tarefas = Connector('tarefas');
   late TextEditingController _controller = TextEditingController();
-  var _newTodo = '';
   @override
   void dispose() {
     _controller.dispose();
@@ -38,23 +37,30 @@ class _BottomMenuState extends State<BottomMenu> {
                             shape: CircleBorder())),
                     title: TextField(
                       controller: _controller,
-                      onChanged: (String value) {
-                        setState(() {
-                          _newTodo = value;
-                        });
+                      onChanged: (value) {
+                        setState(() {});
                       },
                       autofocus: true,
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Adicionar uma tarefa'),
                       obscureText: false,
+                      onSubmitted: (String value) {
+                        if (_controller.value.text.isNotEmpty) {
+                          tarefas.addDoc({
+                            'name': _controller.text,
+                            'checked': false,
+                            'uid': FirebaseAuth.instance.currentUser!.uid,
+                          }).then((value) => Navigator.pop(context));
+                        }
+                      },
                     ),
                     trailing: IconButton(
                         icon: Icon(Icons.file_upload_outlined),
-                        onPressed: (_newTodo.isNotEmpty)
+                        onPressed: (_controller.value.text.isNotEmpty)
                             ? () {
                                 tarefas.addDoc({
-                                  'name': _newTodo,
+                                  'name': _controller.text,
                                   'checked': false,
                                   'uid': FirebaseAuth.instance.currentUser!.uid,
                                 }).then((value) => Navigator.pop(context));
