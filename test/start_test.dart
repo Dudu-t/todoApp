@@ -7,7 +7,7 @@ import 'package:todoapp/App/todo/domain/entities/todo.dart';
 import 'package:todoapp/App/todo/domain/usecases/create_todo.dart';
 import 'package:todoapp/App/todo/external/firebase_create_datasource.dart';
 import 'package:todoapp/App/todo/infra/models/todo_model.dart';
-import 'package:todoapp/App/todo/infra/repositories/todo_repository_impl.dart';
+import 'package:todoapp/App/todo/infra/repositories/create_todo_repository_impl.dart';
 
 main() async {
   test('testando', () async {

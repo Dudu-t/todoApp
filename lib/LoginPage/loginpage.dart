@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todoapp/App/todo/domain/usecases/create_todo.dart';
-import 'package:todoapp/App/todo/external/firebase_create_datasource.dart';
-import 'package:todoapp/App/todo/infra/models/todo_model.dart';
-import 'package:todoapp/App/todo/infra/repositories/todo_repository_impl.dart';
+import 'package:todoapp/App/todo/domain/usecases/delete_todo.dart';
+import 'package:todoapp/App/todo/external/firebase_delete_datasource.dart';
+import 'package:todoapp/App/todo/infra/datasource/delete_todo_datasource.dart';
+import 'package:todoapp/App/todo/infra/repositories/delete_todo_repository_impl.dart';
 import 'package:todoapp/Connectors/auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,13 +19,9 @@ class _LoginPageState extends State<LoginPage> {
   late String invalidUser;
   @override
   void ab() async {
-    var todocreated =
-        ToDoModel(checked: false, name: 'Criar conta', uid: 'userid');
-
-    var createTodo =
-        CreateToDoImpl(ToDoRepositoryImpl(FirebaseCreateDatasource()));
-    var created = await createTodo(todocreated);
-    print(created);
+    var delete =
+        DeleteTodoImpl(DeleteToDoRepositoryImpl(FirebaseDeleteDatasource()));
+    delete('4BXMQ07Y173Y7cKX8cp3');
   }
 
   void initState() {
